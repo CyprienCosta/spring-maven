@@ -31,19 +31,12 @@ jobs:
           mvn sonar:sonar \
             -Dsonar.projectKey=springboot-app \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-      - name: Lait CEUX CRAIT
-        run: echo ${{ secrets.NEXUS_USER }} ${{ secrets.NEXUS_PASSWORD }}
-        env:
-          NEXUS_USER: ${{ secrets.NEXUS_USER }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}     
 
       # 5. Publier vers Nexus (uniquement sur main)
       - name: Publish to Nexus
         if: github.ref == 'refs/heads/main'
-        run: mvn deploy -DskipTests -X \ echo ${{ secrets.NEXUS_USER }} ${{ secrets.NEXUS_PASSWORD }}
+        run: mvn deploy -DskipTests -X
         env:
           NEXUS_USER: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
